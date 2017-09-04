@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DemoComponent } from './demo/demo.component';
+import { ValidationMessagesService } from './ngx-validation-messagex'
 
 @NgModule({
   declarations: [
@@ -10,9 +12,10 @@ import { DemoComponent } from './demo/demo.component';
     DemoComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule 
   ],
-  providers: [],
+  providers: [ValidationMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
