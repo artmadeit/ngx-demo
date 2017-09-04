@@ -1,13 +1,16 @@
-import { ValidationRule } from './validation-rule'
+import { ValidationRule, ValidationError } from './validation-rule'
+
+interface GetValidationMessage {
+    (error: ValidationError, displayName: string): string;
+}
 
 export class ValidationRuleMessage {
-
     constructor(public readonly key: string,
-        private messageCallback ) {
+        private getValidationMessage: GetValidationMessage ) {
     }
 
-    message(error, displayName): string {
-        return this.messageCallback(error, displayName)
+    message(error: ValidationError, displayName: string): string {
+        return this.getValidationMessage(error, displayName)
     }
 }
 

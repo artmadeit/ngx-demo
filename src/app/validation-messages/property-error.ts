@@ -1,9 +1,9 @@
 import { validationRuleMessages } from './rule-message'
 import { displayName } from './display-name'
-import { ValidationErrors } from './validation-errors'
+import { ValidationError } from './validation-rule'
 
 export class PropertyError {
-    constructor(public readonly propertyName: string, private error: ValidationErrors) {
+    constructor(public readonly propertyName: string, private error: ValidationError) {
     }
 
     get message() {
@@ -14,5 +14,14 @@ export class PropertyError {
 
     get displayName() {
         return displayName.of(this.propertyName)
+    }
+}
+
+// TODO test
+export class Errors {
+    constructor(...errors: PropertyError[]) {
+        errors.forEach(x => {
+            this[x.propertyName] = x
+        });
     }
 }
