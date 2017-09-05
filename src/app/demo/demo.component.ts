@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { ValidationMessagesService } from '../ngx-validation-messagex'
 
+const passwordMatchValidator = (g: FormGroup) => {
+  return g.get('password').value === g.get('passwordConfirm').value
+    ? null : { 'mismatch': true };
+}
+
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -9,6 +14,7 @@ import { ValidationMessagesService } from '../ngx-validation-messagex'
 })
 export class DemoComponent implements OnInit {
   personForm: FormGroup;
+  registerUserForm: FormGroup;
   errors: any;
 
   constructor(public validationMessages: ValidationMessagesService,
@@ -24,6 +30,14 @@ export class DemoComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       age: ['', [Validators.required, Validators.min(18)]]
+    });
+
+    this.registerUserForm = this.fb.group({
+      username: ['', Validators.required],
+      confirmPasswordGroup: this.fb.group({
+        password: ['', Validators.minLength(6)],
+        passwordConfirm: ['', Validators.minLength(6)]
+      }, { validator: passwordMatchValidator })
     });
 
     this.errors = this.buildErrorMessages(this.personForm)
@@ -50,7 +64,7 @@ class ValidationError {
   constructor(private pair, private trigger, private validationMessages) {
   }
 
-  get onDisplay() {
+  get exist() {
     return this.trigger(this.pair.control)
   }
 
