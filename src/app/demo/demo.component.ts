@@ -27,7 +27,8 @@ export class DemoComponent implements OnInit {
 
   private createForm() {
     this.personForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(5)]],
+      firstName: ['', [Validators.required, Validators.minLength(5)]],
+      lastName: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       age: ['', [Validators.required, Validators.min(18)]]
     });
