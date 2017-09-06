@@ -2,6 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { ValidationMessagesService } from '../ngx-validation-messagex'
 
+import {
+  ValidationRuleMessage,
+  validationRuleMessages,
+  displayName
+} from '../validation-messages'
+
+const existingAliases = [
+  'sponge bob',
+  'patrick star',
+  'squidward tentacles',
+  'sandy cheeks',
+  'mr. krabs',
+  'gary'
+]
+
+const isUnique = (control: AbstractControl) => {
+  return existingAliases.map(x => x.toUpperCase()).includes((control.value as string).toUpperCase())
+    ? { 'isUnique': { value: control.value } }: null;
+}
+
+const customValidationRuleMessage = new ValidationRuleMessage('isUnique',
+  (error, displayName) => `Sorry your ${displayName} cannot be ${error.value}, it's already taken :(`
+)
+validationRuleMessages.add(customValidationRuleMessage)
+
+// Custom display name
+displayName.for('email', 'E-mail Address')
+
+
 const passwordMatchValidator = (g: FormGroup) => {
   return g.get('password').value === g.get('passwordConfirm').value
     ? null : { 'mismatch': true };
@@ -29,6 +58,7 @@ export class DemoComponent implements OnInit {
     this.personForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(5)]],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
+      alias: ['', [Validators.required, isUnique]],
       email: ['', [Validators.required, Validators.email]],
       age: ['', [Validators.required, Validators.min(18)]]
     });

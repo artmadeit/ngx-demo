@@ -18,9 +18,18 @@
       </div>
     </div>
     <div class="form-group">
+        <label for="alias">Alias:</label>
+        <input id="alias" formControlName="alias" class="form-control" type="text" />
+        <small>With <strong>custom validator (and custom validation message, see password for default validation message)</strong>,
+           unique aliases, registered aliases are sponge bob, patrick star... </small>
+        <div *ngIf="errors.alias.exist" class="alert alert-danger">
+          {{errors.alias.message}}
+        </div>
+      </div>
+    <div class="form-group">
       <label for="email">Email:</label>
       <input id="email" formControlName="email" class="form-control" type="email" aria-describedby="emailHelp" />
-      <small id="emailHelp">We'll never share your email with anyone else.</small>
+      <small id="emailHelp">Notice email -> E-mail Address, using <strong>custom display name</strong>.</small>
       <div *ngIf="errors.email.exist" class="alert alert-danger">
         {{errors.email.message}}
       </div>
