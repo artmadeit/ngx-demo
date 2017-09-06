@@ -16,14 +16,14 @@ export class DisplayErrorComponent {
 
     @Input() control: FormControl;
     @Input() key: string;
+    @Input() when: Function = (control: AbstractControl) => control.invalid && (control.dirty || control.touched);
     @ContentChild('templateError') templateError: TemplateRef<any>;
     constructor(public validationMessages: ValidationMessagesService) {
     }
 
-    default = (control: AbstractControl) => control.invalid && (control.dirty || control.touched);
 
     get errorExists() {
-        return this.default(this.control)
+        return this.when(this.control)
     }
     get message() {
         return this.validationMessages.ofControl(this.key, this.control)
