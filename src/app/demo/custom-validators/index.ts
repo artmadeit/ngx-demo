@@ -1,2 +1,2 @@
-export * from './is-unique'
-export * from './is-password-confirmed'
+export { isUnique } from './is-unique'
+export { isPasswordConfirmed } from './is-password-confirmed'
