@@ -18,14 +18,14 @@
       </div>
     </div>
     <div class="form-group">
-        <label for="alias">Alias:</label>
-        <input id="alias" formControlName="alias" class="form-control" type="text" />
-        <small>With <strong>custom validator (and custom validation message, see password for default validation message)</strong>,
+      <label for="alias">Alias:</label>
+      <input id="alias" formControlName="alias" class="form-control" type="text" />
+      <small>With <strong>custom validator (and custom validation message, see password for default validation message)</strong>,
            unique aliases, registered aliases are sponge bob, patrick star... </small>
-        <div *ngIf="errors.alias.exist" class="alert alert-danger">
-          {{errors.alias.message}}
-        </div>
+      <div *ngIf="errors.alias.exist" class="alert alert-danger">
+        {{errors.alias.message}}
       </div>
+    </div>
     <div class="form-group">
       <label for="email">Email:</label>
       <input id="email" formControlName="email" class="form-control" type="email" aria-describedby="emailHelp" />
@@ -69,6 +69,7 @@
       <div *ngIf="default(registerUserForm.get('confirmPasswordGroup.passwordConfirm'))" class="alert alert-danger">
         {{validationMessages.ofControl('passwordConfirm', registerUserForm.get('confirmPasswordGroup.passwordConfirm'))}}
       </div>
+      <button class="btn btn-primary" type="submit">Register</button>
     </div>
   </form>
 </div>
