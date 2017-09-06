@@ -72,4 +72,22 @@
       <button class="btn btn-primary" type="submit">Register</button>
     </div>
   </form>
+
+  <h2>Person registration form using component error viewer</h2>
+  <form [formGroup]="personForm" novalidate>
+    <div class="form-group">
+      <label for="firstName">First name:</label>
+      <input id="firstName" formControlName="firstName" class="form-control" type="text" />
+      <small>Notice the firstName -> first name in your error, 
+        also if you use first_name or first-name.</small>
+      <display-error  [key]="'firstName'" [control]="personForm.controls['firstName']">
+       <ng-template #templateError let-message="message">
+          <div class="alert alert-danger">
+            {{message}} 
+          </div>
+        </ng-template>
+      </display-error>
+    </div>
+    <button class="btn btn-primary" type="submit">Register</button>
+  </form>
 </div>

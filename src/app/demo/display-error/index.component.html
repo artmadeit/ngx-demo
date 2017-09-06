@@ -1,0 +1,9 @@
+<div *ngIf="errorExists">
+    <div *ngIf="templateError;else templateDefault">
+        <ng-container [ngTemplateOutlet]="templateError" [ngOutletContext]="{ message: message }">
+        </ng-container>
+    </div>
+    <ng-template #templateDefault>
+        {{message}}
+    </ng-template>
+</div>
