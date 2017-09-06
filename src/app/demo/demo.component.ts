@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { ValidationMessagesService } from '../ngx-validation-messagex'
 import { isUnique, isPasswordConfirmed } from './custom-validators'
@@ -26,8 +26,7 @@ export class DemoComponent implements OnInit {
   personForm: FormGroup;
   registerUserForm: FormGroup;
   errors: any;
-  @ViewChild('templateError') templateError: TemplateRef<any>;
-
+  
   constructor(public validationMessages: ValidationMessagesService,
     private fb: FormBuilder) {
   }
