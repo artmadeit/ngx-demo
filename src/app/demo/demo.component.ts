@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { ValidationMessagesService } from '../ngx-validation-messagex'
-import { isUnique } from './custom-validators/is-unique'
+import { isUnique, isPasswordConfirmed } from './custom-validators'
 
 import {
   ValidationRuleMessage,
@@ -16,12 +16,6 @@ validationRuleMessages.add(customValidationRuleMessage)
 
 // Custom display name
 displayName.for('email', 'E-mail Address')
-
-
-const passwordMatchValidator = (g: FormGroup) => {
-  return g.get('password').value === g.get('passwordConfirm').value
-    ? null : { 'mismatch': true };
-}
 
 @Component({
   selector: 'app-demo',
@@ -49,16 +43,16 @@ export class DemoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       age: ['', [Validators.required, Validators.min(18)]]
     });
+    
+    this.errors = this.buildErrorMessages(this.personForm)
 
     this.registerUserForm = this.fb.group({
       username: ['', Validators.required],
       confirmPasswordGroup: this.fb.group({
         password: ['', Validators.minLength(6)],
         passwordConfirm: ['', Validators.minLength(6)]
-      }, { validator: passwordMatchValidator })
+      }, { validator: isPasswordConfirmed })
     });
-
-    this.errors = this.buildErrorMessages(this.personForm)
   }
 
   default = (control: AbstractControl) => control.invalid && (control.dirty || control.touched)
