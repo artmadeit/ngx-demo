@@ -17,6 +17,7 @@ export class DisplayErrorComponent {
     @Input() control: FormControl;
     @Input() key: string;
     @Input() when: Function = (control: AbstractControl) => control.invalid && (control.dirty || control.touched);
+    @Input()
     @ContentChild('templateError') templateError: TemplateRef<any>;
     constructor(public validationMessages: ValidationMessagesService) {
     }

@@ -80,14 +80,14 @@
       <input id="firstName" formControlName="firstName" class="form-control" type="text" />
       <small>Notice the firstName -> first name in your error, 
         also if you use first_name or first-name.</small>
-      <display-error  [key]="'firstName'" [control]="personForm.controls['firstName']">
-       <ng-template #templateError let-message="message">
-          <div class="alert alert-danger">
-            {{message}} 
-          </div>
-        </ng-template>
+      <display-error [key]="'firstName'" [templateError]="templateError" [control]="personForm.controls['firstName']">
       </display-error>
     </div>
     <button class="btn btn-primary" type="submit">Register</button>
   </form>
+  <ng-template #templateError let-message="message">
+    <div class="alert alert-danger">
+      {{message}} 
+    </div>
+  </ng-template>
 </div>
