@@ -1,26 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { ValidationMessagesService } from '../ngx-validation-messagex'
+import { isUnique } from './custom-validators/is-unique'
 
 import {
   ValidationRuleMessage,
   validationRuleMessages,
   displayName
 } from '../validation-messages'
-
-const existingAliases = [
-  'sponge bob',
-  'patrick star',
-  'squidward tentacles',
-  'sandy cheeks',
-  'mr. krabs',
-  'gary'
-]
-
-const isUnique = (control: AbstractControl) => {
-  return existingAliases.map(x => x.toUpperCase()).includes((control.value as string).toUpperCase())
-    ? { 'isUnique': { value: control.value } }: null;
-}
 
 const customValidationRuleMessage = new ValidationRuleMessage('isUnique',
   (error, displayName) => `Sorry your ${displayName} cannot be ${error.value}, it's already taken :(`
